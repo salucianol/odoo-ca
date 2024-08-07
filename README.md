@@ -1,1 +1,1 @@
-# odoo-ca
+# Odoo Canada
