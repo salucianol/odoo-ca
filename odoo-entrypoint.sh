@@ -26,19 +26,23 @@ check_config "db_user" "$USER"
 check_config "db_password" "$PASSWORD"
 check_config "db_name" "$DATABASE_NAME"
 
+ODOO_ARGS=()
+if [[ -n "$ODOO_INITIAL_MODULES" ]]; then
+    ODOO_ARGS+=("--init")
+    ODOO_ARGS+=("${ODOO_INITIAL_MODULES}")
+fi
+
 case "$1" in
     -- | odoo)
         shift
         if [[ "$1" == "scaffold" ]] ; then
             exec odoo "$@"
         else
-            # wait-for-psql.py ${DB_ARGS[@]} --timeout=30
-            exec odoo "$@" "${DB_ARGS[@]}"
+            exec odoo "$@" "${DB_ARGS[@]}" "${ODOO_ARGS[@]}"
         fi
         ;;
     -*)
-        # wait-for-psql.py ${DB_ARGS[@]} --timeout=30
-        exec odoo "$@" "${DB_ARGS[@]}"
+        exec odoo "$@" "${DB_ARGS[@]}" "${ODOO_ARGS[@]}"
         ;;
     *)
         exec "$@"
