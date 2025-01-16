@@ -1,0 +1,46 @@
+<odoo>
+    <data>
+        <template id="ks_external_layout_bold" 
+            inherit_id="web.external_layout_bold">
+
+            <xpath expr="//div[hasclass('row')]/div/img" position="replace">
+                <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" 
+                    style="max-height: 180px;" alt="Logo"/>
+            </xpath>
+
+            <xpath expr="//div[@name='company_address']/ul" position="replace">
+                <ul class="list-unstyled" name="company_address_list">
+                    <li t-if="company.is_company_details_empty">
+                        <span t-field="company.partner_id" 
+                            t-options='{"widget": "contact", 
+                                "fields": ["address", "name", "email", "vat"], 
+                                "no_marker": true}'>
+                            <div class="bg-light border-1 rounded h-100 d-flex flex-column 
+                                align-items-center justify-content-center p-4 w-100 
+                                opacity-75 text-muted text-center">
+                                <strong>Company address block</strong>
+                                <div>Contains the company address.</div>
+                            </div>
+                        </span>
+                    </li>
+                    <li t-else="">
+                        <span t-field="company.company_details">
+                            <div class="bg-light border-1 rounded h-100 d-flex flex-column 
+                                align-items-center justify-content-center p-4 w-100 
+                                opacity-75 text-muted text-center">
+                                <strong>Company details block</strong>
+                                <div>Contains the company details.</div>
+                            </div>
+                        </span>
+                    </li>
+                    <li t-if="not forced_vat"/>
+                    <li t-else="">
+                        <t t-esc="company.country_id.vat_label or 'Tax ID'">Tax ID</t>:
+                        <span t-esc="forced_vat">US12345671</span>
+                    </li>
+                </ul>
+            </xpath>
+
+        </template>
+    </data>
+</odoo>

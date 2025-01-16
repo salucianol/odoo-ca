@@ -1,0 +1,133 @@
+<odoo>
+    <data>
+        <template id="ks_report_invoice_document" 
+            inherit_id="account.report_invoice_document">
+
+            <xpath expr="//div[@name='address_not_same_as_shipping']" position="replace">
+                <div class="col-6" name="address_not_same_as_shipping" style="padding: 10px 0;">
+                    <t t-set="address">
+                        <address class="mb-0" t-field="o.partner_id" 
+                            t-options='{"widget": "contact", 
+                                        "fields": ["address", "name", "email", "mobile", "phone"], 
+                                        "no_marker": True}'/>
+                        <div t-if="o.partner_id.vat" id="partner_vat_address_not_same_as_shipping">
+                            <t t-if="o.company_id.account_fiscal_country_id.vat_label"
+                                t-out="o.company_id.account_fiscal_country_id.vat_label" 
+                                id="inv_tax_id_label"/>
+                            <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='address_same_as_shipping']" position="replace">
+                <div class="offset-col-6 col-6" name="address_same_as_shipping" style="padding: 10px 0;">
+                    <t t-set="address">
+                        <address class="mb-0" t-field="o.partner_id" 
+                            t-options='{"widget": "contact", 
+                                        "fields": ["address", "name", "email", "mobile", "phone"], 
+                                        "no_marker": True}'/>
+                        <div t-if="o.partner_id.vat" id="partner_vat_address_same_as_shipping">
+                            <t t-if="o.company_id.account_fiscal_country_id.vat_label" 
+                                t-out="o.company_id.account_fiscal_country_id.vat_label" 
+                                id="inv_tax_id_label"/>
+                            <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='shipping_address_block']" position="replace">
+                <div groups="account.group_delivery_invoice_address" name="shipping_address_block" style="padding: 10px 0;">
+                    <strong>Shipping Address:</strong>
+                    <div t-field="o.partner_shipping_id" 
+                        t-options='{"widget": "contact", 
+                                    "fields": ["address", "name", "email", "mobile", "phone"], 
+                                    "no_marker": True}'/>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@name='no_shipping']" position="replace">
+                <div class="offset-col-6 col-6" name="no_shipping" style="padding: 10px 0;">
+                    <t t-set="address">
+                        <address class="mb-0" t-field="o.partner_id" 
+                            t-options='{"widget": "contact", 
+                                        "fields": ["address", "name", "email", "mobile", "phone"], 
+                                        "no_marker": True}'/>
+                        <div t-if="o.partner_id.vat" id="partner_vat_no_shipping">
+                            <t t-if="o.company_id.account_fiscal_country_id.vat_label" 
+                                t-out="o.company_id.account_fiscal_country_id.vat_label" 
+                                id="inv_tax_id_label"/>
+                            <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/>
+                        </div>
+                    </t>
+                </div>
+            </xpath>
+
+            <xpath expr="//th[@name='th_description']" position="before">
+                <th name="th_product_name" class="text-start"><span>Product</span></th>
+            </xpath>
+
+            <xpath expr="//td[@name='account_invoice_line_name']" position="before">
+                <td name="account_invoice_line_product_name">
+                    <span t-if="line.product_id.name" 
+                        t-field="line.product_id.name" 
+                        t-options="{'widget': 'text'}">Bacon Burger</span>
+                </td>
+            </xpath>
+
+            <xpath expr="//td[@name='td_price_unit']" position="replace">
+                <td name="td_price_unit" 
+                    t-attf-class="text-end 
+                        {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                    <span class="text-nowrap" 
+                        t-field="line.price_unit"
+                        t-options='{"widget": "monetary", 
+                                    "display_currency": o.currency_id}'>9.00</span>
+                </td>
+            </xpath>
+
+            <xpath expr="//div[hasclass('row')][last()]" position="after">
+                <t t-if="o.payment_state in ['paid', 'partial']">
+                    <div class="row"
+                        style="height:200px; width:300px;margin-left:15%;margin-top:25%;position:absolute;">
+                        <div class="col-6" name="watermark">
+                            <span t-if="o.payment_state == 'paid'"
+                                t-attf-style="-webkit-transform:rotate(-30deg);
+                                                font-size:190px;
+                                                text-align:center;
+                                                opacity:0.05;
+                                                z-index:999;
+                                                color:#ffffff;
+                                                border-radius:40px;
+                                                background-color:rgb(1, 153, 19) !important;
+                                                position:absolute;
+                                                padding:0 40px 0 40px;">
+                                    PAID
+                                </span>
+                                <span t-if="o.payment_state == 'partial'"
+                                t-attf-style="-webkit-transform:rotate(-30deg);
+                                                font-size:120px;
+                                                text-align:center;
+                                                opacity:0.05;
+                                                z-index:999;
+                                                color:#ffffff;
+                                                border-radius:40px;
+                                                background-color:rgb(247, 147, 30) !important;
+                                                position:absolute;
+                                                padding:0 40px 0 40px;">
+                                    PARTIAL
+                                </span>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+
+            <xpath expr="//p[@name='payment_communication']" position="replace">
+                <p name="payment_communication">
+                    Please use the email <strong><t t-out="o.company_id.email" /></strong> to make the e-transfer.
+                </p>
+            </xpath>
+        </template>
+    </data>
+</odoo>
