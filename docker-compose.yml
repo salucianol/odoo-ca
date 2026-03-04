@@ -12,6 +12,7 @@ services:
         source: ${DATA_PATH}/${DATABASE_NAME}/odoo
         target: /var/data/odoo
       - ./conf:/etc/odoo
+      - ./third_party_addons/${ODOO_VERSION}:/mnt/extra-addons
     environment:
       HOST: db
       PORT: 5432

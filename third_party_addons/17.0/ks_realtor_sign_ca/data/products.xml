@@ -1,0 +1,64 @@
+<odoo>
+    <data>
+        <record id="product_storable_realtor_sign" model="product.template">
+            <field name="name">Realtor Sign</field>
+            <field name="type">product</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="default_code">RS</field>
+            <field name="list_price">0.0000</field>
+            <field name="standard_price">0.0000</field>
+            <field name="barcode">889944344178</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tracking">serial</field>
+        </record>
+        <record id="product_storable_realtor_sign_post" model="product.template">
+            <field name="name">Realtor Sign Post</field>
+            <field name="type">product</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="default_code">RSP</field>
+            <field name="list_price">0.0000</field>
+            <field name="standard_price">0.0000</field>
+            <field name="barcode">680550115196</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tracking">serial</field>
+        </record>
+        <record id="product_service_sign_installation" model="product.template">
+            <field name="name">Realtor Sign Installation</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="default_code">SI</field>
+            <field name="list_price">65.0000</field>
+            <field name="standard_price">0.0000</field>
+            <field name="barcode">397014400089</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tracking">serial</field>
+        </record>
+        <record id="product_service_sign_removal" model="product.template">
+            <field name="name">Realtor Sign Removal</field>
+            <field name="type">service</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="default_code">SR</field>
+            <field name="list_price">30.0000</field>
+            <field name="standard_price">0.0000</field>
+            <field name="barcode">526963055053</field>
+            <field name="uom_id" ref="uom.product_uom_unit"/>
+            <field name="uom_po_id" ref="uom.product_uom_unit"/>
+            <field name="sale_ok">True</field>
+            <field name="purchase_ok">False</field>
+            <field name="company_id" ref="base.main_company"/>
+            <field name="tracking">serial</field>
+        </record>
+    </data>
+</odoo>
